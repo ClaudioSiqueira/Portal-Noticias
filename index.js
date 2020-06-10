@@ -1,9 +1,24 @@
 const express = require('express')
 const app = express()
-const connection = require('./database/database')
+const Noticias = require('./noticias/Noticias')
+
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) =>{
-    res.send('Rota home')
+    res.render('teste')
+})
+
+app.post('/listar', (req, res) =>{
+    Noticias.findAll().then((lista) =>{
+        res.send(lista)
+    })
+})
+
+app.post('/adicionar', (req, res) =>{
+    Noticias.create({
+        titulo: 'teste2',
+        corpo: 'corpo2'
+    })
 })
 
 
